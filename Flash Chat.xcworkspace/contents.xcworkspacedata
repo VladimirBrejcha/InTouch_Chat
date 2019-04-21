@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/vladimirkorolev/Code/Swift/MyApps/FlashChatApp/InTouch Chat.xcodeproj">
+      location = "group:Pods/../InTouch Chat.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

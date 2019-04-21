@@ -20,7 +20,6 @@
 		63EBB3051D98004B004175E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63EBB3041D98004B004175E5 /* LaunchScreen.storyboard */; };
 		6D1A604E0C78ABCC273FD903 /* Pods_Flash_Chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B00E19A635074FD7ADD0BB5 /* Pods_Flash_Chat.framework */; };
 		9233FEF2226A5C960045679B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9233FEF1226A5C960045679B /* GoogleService-Info.plist */; };
-		AD6D00E420EA766400B1782A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = AD6D00E320EA766400B1782A /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +40,6 @@
 		63E28B2E1B9A337600FBF6E0 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		63EBB3041D98004B004175E5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ../LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9233FEF1226A5C960045679B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		AD6D00E320EA766400B1782A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +65,6 @@
 		6321A9AD1B94EBA10053D2E7 = {
 			isa = PBXGroup;
 			children = (
-				AD6D00E320EA766400B1782A /* README.md */,
 				6321A9B81B94EBA10053D2E7 /* InTouch Chat */,
 				6321A9B71B94EBA10053D2E7 /* Products */,
 				98D6F925599A0F0E9A943F99 /* Pods */,
@@ -218,7 +215,6 @@
 			files = (
 				63E28B291B9A336600FBF6E0 /* Main.storyboard in Resources */,
 				6321A9C31B94EBA10053D2E7 /* Images.xcassets in Resources */,
-				AD6D00E420EA766400B1782A /* README.md in Resources */,
 				63EBB3051D98004B004175E5 /* LaunchScreen.storyboard in Resources */,
 				6321A9E51B94EBE70053D2E7 /* MessageCell.xib in Resources */,
 				9233FEF2226A5C960045679B /* GoogleService-Info.plist in Resources */,
@@ -420,7 +416,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = "Flash Chat/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/InTouch Chat/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.VladimirBrejcha.InTouch;
@@ -441,7 +437,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = "Flash Chat/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/InTouch Chat/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.VladimirBrejcha.InTouch;
