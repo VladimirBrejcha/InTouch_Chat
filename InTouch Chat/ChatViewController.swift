@@ -22,34 +22,53 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet var messageTextfield: UITextField!
     @IBOutlet var messageTableView: UITableView!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        messageTableView.delegate = self
-        messageTableView.dataSource = self
-        messageTextfield.delegate = self
-        navigationItem.hidesBackButton = true
+        setMessageView()
+        
+        retrieveMessages()
+        
+        setObservers()
+        
+        hideKeyboardWhenTappedAround()
+    }
+    
+    
+    fileprivate func setObservers() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    
+    fileprivate func setMessageView() {
         
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(tableViewTapped))
         messageTableView.addGestureRecognizer(tapRecognizer)
         
-        messageTableView.register(UINib(nibName: "MessageCell", bundle: nil), forCellReuseIdentifier: "customMessageCell")
-        configureTableView()
-        retrieveMessages()
+        messageTableView.delegate = self
+        messageTableView.dataSource = self
+        
         messageTableView.separatorStyle = .none
+        messageTableView.rowHeight = UITableView.automaticDimension
+        messageTableView.estimatedRowHeight = 12.0
         
-        hideKeyboardWhenTappedAround()
-        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        messageTableView.register(UINib(nibName: "MessageCell", bundle: nil), forCellReuseIdentifier: "customMessageCell")
         
+        navigationItem.hidesBackButton = true
     }
+    
     
     //MARK: - Moving view on Keyboard frame changing
     @objc func keyBoardWillShow(notification: NSNotification) {
         let userInfo = notification.userInfo!
+        
         guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
         let size = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.height
         keyboardSize = size
+        
         UIView.animate(withDuration: duration) {
             self.view.frame.origin.y -= self.keyboardSize
         }
@@ -57,14 +76,16 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @objc func keyBoardWillHide(notification: NSNotification) {
         let userInfo = notification.userInfo!
+        
         guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
+        
         UIView.animate(withDuration: duration) {
             self.view.frame.origin.y += self.keyboardSize
         }
     }
     
-    //MARK: - TableView DataSource Methods
     
+    //MARK: - TableView DataSource Methods
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "customMessageCell", for: indexPath) as! CustomMessageCell
@@ -72,6 +93,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.messageBody.text = messageArray[indexPath.row].messageBody
         cell.senderUsername.text = messageArray[indexPath.row].sender
         
+        //checking which user is logged in to separate his messages from others messages
         if cell.senderUsername.text == Auth.auth().currentUser?.email as String? {
             cell.messageBackground.backgroundColor = UIColor.flatOrange()
             cell.leftConstraint.constant = 45
@@ -79,7 +101,6 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.messageBackground.backgroundColor = UIColor.flatNavyBlue()
             cell.rightConstraint.constant = 45
         }
-        
         return cell
     }
     
@@ -90,55 +111,35 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     
-    //TODO: Declare tableViewTapped here:
+    //this function is used to block table view cell from being selected
     @objc func tableViewTapped(sender: UIGestureRecognizer) {
         messageTextfield.endEditing(true)
-        
     }
     
-    
-    //TODO: Declare configureTableView here:
-    private func configureTableView() {
-        messageTableView.rowHeight = UITableView.automaticDimension
-        messageTableView.estimatedRowHeight = 12.0
-    }
-    
-    //MARK:- TextField Delegate Methods
-
-//    internal func textFieldDidBeginEditing(_ textField: UITextField) {
-//        UIView.animate(withDuration: 0.5) {
-//            self.heightConstraint.constant = 308
-//            self.view.layoutIfNeeded()
-//        }
-//    }
-//
-//    internal func textFieldDidEndEditing(_ textField: UITextField) {
-//        UIView.animate(withDuration: 0.5) {
-//            self.heightConstraint.constant = 50
-//            self.view.layoutIfNeeded()
-//        }
-//
-//
-//    }
     
     //MARK: - Send & Recieve from Firebase
-    
     @IBAction func sendPressed(_ sender: AnyObject) {
         
         messageTextfield.endEditing(true)
         messageTextfield.isEnabled = false
         sendButton.isEnabled = false
         
-        let messagesDB = Database.database().reference().child("Messages")
-        
+        let messagesDataBase = Database.database().reference().child("Messages")
         let messageDictionary = ["Sender" : Auth.auth().currentUser?.email, "Message" : messageTextfield.text]
         
-        messagesDB.childByAutoId().setValue(messageDictionary) {
+        messagesDataBase.childByAutoId().setValue(messageDictionary) {
             (error, reference) in
             if error != nil {
+                self.messageTextfield.isEnabled = true
+                self.sendButton.isEnabled = true
+                
+                let alertController = UIAlertController(title: "Error", message: "Smth went wrong:( Try again later", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                alertController.addAction(okAction)
+                self.present(alertController, animated: true, completion: nil)
+                
                 print(error!)
             } else {
-                print("message saved")
                 self.messageTextfield.isEnabled = true
                 self.sendButton.isEnabled = true
                 self.messageTextfield.text = ""
@@ -147,26 +148,28 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     private func retrieveMessages() {
-        let messageDB = Database.database().reference().child("Messages")
         
-        messageDB.observe(.childAdded) { (snapshot) in
+        //finding a context with messages
+        let messageDataBase = Database.database().reference().child("Messages")
+        
+        //listening to data changes in context
+        messageDataBase.observe(.childAdded) { (snapshot) in
+            
             let snapshotValue = snapshot.value as! [String : String]
-            let text = snapshotValue["Message"]!
+            let messageText = snapshotValue["Message"]!
             let sender = snapshotValue["Sender"]!
             
             let messageObject = Message()
-            messageObject.messageBody = text
+            messageObject.messageBody = messageText
             messageObject.sender = sender
             
             self.messageArray.append(messageObject)
             
-            self.configureTableView()
             self.messageTableView.reloadData()
         }
     }
     
     @IBAction func logOutPressed(_ sender: AnyObject) {
-        
         do {
             try Auth.auth().signOut()
             navigationController?.popToRootViewController(animated: true)
