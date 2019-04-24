@@ -127,6 +127,12 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         let messagesDataBase = Database.database().reference().child("Messages")
         let messageDictionary = ["Sender" : Auth.auth().currentUser?.email, "Message" : messageTextfield.text]
         
+        if messageTextfield.text == "" {
+            self.messageTextfield.isEnabled = true
+            self.sendButton.isEnabled = true
+            return
+        }
+        
         messagesDataBase.childByAutoId().setValue(messageDictionary) {
             (error, reference) in
             if error != nil {
@@ -143,6 +149,9 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.messageTextfield.isEnabled = true
                 self.sendButton.isEnabled = true
                 self.messageTextfield.text = ""
+                let lastRow: Int = self.messageTableView.numberOfRows(inSection: 0) - 1
+                let indexPath = IndexPath(row: lastRow, section: 0)
+                self.messageTableView.scrollToRow(at: indexPath, at: .none, animated: true)
             }
         }
     }
