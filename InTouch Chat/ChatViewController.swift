@@ -14,8 +14,7 @@ import ChameleonFramework
 class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     private var messageArray = [Message]()
-    private var animationDuration = Double()
-    private var keyboardSize = Double()
+    private var keyboardSize = CGFloat()
     
     // We've pre-linked the IBOutlets
     @IBOutlet var heightConstraint: NSLayoutConstraint!
@@ -41,30 +40,27 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         hideKeyboardWhenTappedAround()
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
     }
     
- 
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        UIView.animate(withDuration: animationDuration) {
-            print(self.keyboardSize)
-            print(self.animationDuration)
-            self.view.frame.origin.y -= CGFloat(self.keyboardSize)
-        }
-    }
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        UIView.animate(withDuration: animationDuration) {
-            self.view.frame.origin.y += CGFloat(self.keyboardSize)
-            
-        }
-    }
-    
-    
+    //MARK: - Moving view on Keyboard frame changing
     @objc func keyBoardWillShow(notification: NSNotification) {
-        guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
-        guard let size = notification.userInfo?[UIResponder.keyboardWillChangeFrameNotification] as? Double else {return}
-        animationDuration = duration
+        let userInfo = notification.userInfo!
+        guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
+        let size = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.height
         keyboardSize = size
+        UIView.animate(withDuration: duration) {
+            self.view.frame.origin.y -= self.keyboardSize
+        }
+    }
+    
+    @objc func keyBoardWillHide(notification: NSNotification) {
+        let userInfo = notification.userInfo!
+        guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
+        UIView.animate(withDuration: duration) {
+            self.view.frame.origin.y += self.keyboardSize
+        }
     }
     
     //MARK: - TableView DataSource Methods
