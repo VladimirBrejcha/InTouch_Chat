@@ -16,7 +16,9 @@ class CustomMessageCell: UITableViewCell {
     @IBOutlet var messageBody: UILabel!
     @IBOutlet var senderUsername: UILabel!
     @IBOutlet weak var leftConstraint: NSLayoutConstraint!
+    @IBOutlet weak var leftSpecialConstraint: NSLayoutConstraint!
     @IBOutlet weak var rightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var rightSpecialConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()

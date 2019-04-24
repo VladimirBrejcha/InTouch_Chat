@@ -56,6 +56,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         messageTableView.estimatedRowHeight = 12.0
         
         messageTableView.register(UINib(nibName: "MessageCell", bundle: nil), forCellReuseIdentifier: "customMessageCell")
+        messageTableView.register(UINib(nibName: "MyMessageViewCell", bundle: nil), forCellReuseIdentifier: "myMessageViewCell")
         
         navigationItem.hidesBackButton = true
     }
@@ -89,19 +90,18 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "customMessageCell", for: indexPath) as! CustomMessageCell
-        
-        cell.messageBody.text = messageArray[indexPath.row].messageBody
-        cell.senderUsername.text = messageArray[indexPath.row].sender
+        let myCell = tableView.dequeueReusableCell(withIdentifier: "myMessageViewCell", for: indexPath) as! CustomMessageCell
         
         //checking which user is logged in to separate his messages from others messages
-        if cell.senderUsername.text == Auth.auth().currentUser?.email as String? {
-            cell.messageBackground.backgroundColor = UIColor.flatOrange()
-            cell.leftConstraint.constant = 45
+        if messageArray[indexPath.row].sender == Auth.auth().currentUser?.email as String? {
+            myCell.messageBody.text = messageArray[indexPath.row].messageBody
+            myCell.senderUsername.text = messageArray[indexPath.row].sender
+            return myCell
         } else {
-            cell.messageBackground.backgroundColor = UIColor.flatNavyBlue()
-            cell.rightConstraint.constant = 45
+            cell.messageBody.text = messageArray[indexPath.row].messageBody
+            cell.senderUsername.text = messageArray[indexPath.row].sender
+            return cell
         }
-        return cell
     }
     
     

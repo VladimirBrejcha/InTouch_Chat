@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="customMessageCell" rowHeight="82" id="9hv-3d-eEy" customClass="CustomMessageCell" customModule="Flash_Chat" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="customMessageCell" rowHeight="82" id="9hv-3d-eEy" customClass="CustomMessageCell" customModule="InTouch_Chat" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="81"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9hv-3d-eEy" id="2SS-CF-kBl">
@@ -19,16 +19,16 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yxz-95-vHl">
-                        <rect key="frame" x="10" y="10" width="300" height="60.5"/>
+                        <rect key="frame" x="8" y="8" width="150" height="64.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="751" verticalHuggingPriority="751" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ael-H3-UuV">
-                                <rect key="frame" x="8" y="30" width="293" height="20.5"/>
+                                <rect key="frame" x="10" y="34" width="130" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="khv-tc-S9N">
-                                <rect key="frame" x="8" y="5" width="293" height="22"/>
+                                <rect key="frame" x="10" y="10" width="132" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -36,13 +36,14 @@
                         </subviews>
                         <color key="backgroundColor" red="0.15868747234344482" green="0.21822044253349304" blue="0.30320093035697937" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="khv-tc-S9N" firstAttribute="leading" secondItem="Yxz-95-vHl" secondAttribute="leading" constant="8" id="BC4-vJ-vr1"/>
-                            <constraint firstAttribute="trailing" secondItem="Ael-H3-UuV" secondAttribute="trailing" constant="-1" id="FEb-k1-GJa"/>
-                            <constraint firstItem="khv-tc-S9N" firstAttribute="top" secondItem="Yxz-95-vHl" secondAttribute="top" constant="5" id="KDv-Ve-rYc"/>
-                            <constraint firstItem="Ael-H3-UuV" firstAttribute="top" secondItem="khv-tc-S9N" secondAttribute="bottom" constant="3" id="TgT-eu-tjd"/>
-                            <constraint firstItem="Ael-H3-UuV" firstAttribute="leading" secondItem="Yxz-95-vHl" secondAttribute="leading" constant="8" id="iOu-Kv-VUo"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="927-tH-mrE"/>
+                            <constraint firstItem="khv-tc-S9N" firstAttribute="leading" secondItem="Yxz-95-vHl" secondAttribute="leading" constant="10" id="BC4-vJ-vr1"/>
+                            <constraint firstAttribute="trailing" secondItem="Ael-H3-UuV" secondAttribute="trailing" constant="10" id="FEb-k1-GJa"/>
+                            <constraint firstItem="khv-tc-S9N" firstAttribute="top" secondItem="Yxz-95-vHl" secondAttribute="top" constant="10" id="KDv-Ve-rYc"/>
+                            <constraint firstItem="Ael-H3-UuV" firstAttribute="top" secondItem="khv-tc-S9N" secondAttribute="bottom" constant="8" id="TgT-eu-tjd"/>
+                            <constraint firstItem="Ael-H3-UuV" firstAttribute="leading" secondItem="Yxz-95-vHl" secondAttribute="leading" constant="10" id="iOu-Kv-VUo"/>
                             <constraint firstAttribute="bottom" secondItem="Ael-H3-UuV" secondAttribute="bottom" constant="10" id="wpC-VG-q67"/>
-                            <constraint firstAttribute="trailing" secondItem="khv-tc-S9N" secondAttribute="trailing" constant="-1" id="yrF-p5-5aK"/>
+                            <constraint firstAttribute="trailing" secondItem="khv-tc-S9N" secondAttribute="trailing" constant="8" id="yrF-p5-5aK"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -54,20 +55,20 @@
                 </subviews>
                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="Yxz-95-vHl" secondAttribute="bottom" constant="10" id="7rL-k3-Njc"/>
-                    <constraint firstAttribute="trailing" secondItem="Yxz-95-vHl" secondAttribute="trailing" constant="10" id="F1b-eD-GtD"/>
-                    <constraint firstItem="Yxz-95-vHl" firstAttribute="top" secondItem="2SS-CF-kBl" secondAttribute="top" constant="10" id="UHt-vT-ebt"/>
-                    <constraint firstItem="Yxz-95-vHl" firstAttribute="leading" secondItem="2SS-CF-kBl" secondAttribute="leading" constant="10" id="Yyj-MB-lK4"/>
+                    <constraint firstAttribute="bottom" secondItem="Yxz-95-vHl" secondAttribute="bottom" constant="8" id="7rL-k3-Njc"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Yxz-95-vHl" secondAttribute="trailing" constant="60" id="F1b-eD-GtD"/>
+                    <constraint firstItem="Yxz-95-vHl" firstAttribute="leading" secondItem="2SS-CF-kBl" secondAttribute="leading" constant="8" id="QSM-er-q6a"/>
+                    <constraint firstItem="Yxz-95-vHl" firstAttribute="top" secondItem="2SS-CF-kBl" secondAttribute="top" constant="8" id="UHt-vT-ebt"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="leftConstraint" destination="Yyj-MB-lK4" id="d1S-f5-FZN"/>
+                <outlet property="leftConstraint" destination="QSM-er-q6a" id="TDs-ln-VEH"/>
                 <outlet property="messageBackground" destination="Yxz-95-vHl" id="i3E-B9-bCM"/>
                 <outlet property="messageBody" destination="Ael-H3-UuV" id="kXz-0y-fp3"/>
                 <outlet property="rightConstraint" destination="F1b-eD-GtD" id="YSi-je-w4o"/>
                 <outlet property="senderUsername" destination="khv-tc-S9N" id="9FT-43-C9p"/>
             </connections>
-            <point key="canvasLocation" x="439" y="381.5"/>
+            <point key="canvasLocation" x="438.75" y="380.8098591549296"/>
         </tableViewCell>
     </objects>
 </document>
