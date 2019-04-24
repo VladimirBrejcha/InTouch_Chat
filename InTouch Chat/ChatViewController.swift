@@ -51,12 +51,16 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         messageTableView.delegate = self
         messageTableView.dataSource = self
         
+        messageTableView.allowsSelection = false
         messageTableView.separatorStyle = .none
         messageTableView.rowHeight = UITableView.automaticDimension
         messageTableView.estimatedRowHeight = 12.0
         
         messageTableView.register(UINib(nibName: "MessageCell", bundle: nil), forCellReuseIdentifier: "customMessageCell")
         messageTableView.register(UINib(nibName: "MyMessageViewCell", bundle: nil), forCellReuseIdentifier: "myMessageViewCell")
+        
+        
+        messageTextfield.delegate = self
         
         navigationItem.hidesBackButton = true
     }
@@ -154,6 +158,11 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.messageTableView.scrollToRow(at: indexPath, at: .none, animated: true)
             }
         }
+    }
+    
+    internal func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        sendPressed(sendButton)
+        return true
     }
     
     private func retrieveMessages() {
