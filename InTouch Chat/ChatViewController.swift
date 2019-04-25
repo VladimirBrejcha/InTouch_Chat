@@ -68,26 +68,26 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     //MARK: - Moving view on Keyboard frame changing
     @objc func keyBoardWillShow(notification: NSNotification) {
         let userInfo = notification.userInfo!
-        
-        guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
-        let size = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.height
-        keyboardSize = size
-        
-        UIView.animate(withDuration: duration) {
-            self.view.frame.origin.y -= self.keyboardSize
+        if self.view.frame.origin.y == 0 {
+            guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
+            let size = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.height
+            keyboardSize = size
+            UIView.animate(withDuration: duration) {
+                self.view.frame.origin.y -= self.keyboardSize
+            }
         }
+        
     }
     
     @objc func keyBoardWillHide(notification: NSNotification) {
         let userInfo = notification.userInfo!
-        
-        guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
-        
-        UIView.animate(withDuration: duration) {
-            self.view.frame.origin.y += self.keyboardSize
+        if self.view.frame.origin.y != 0 {
+            guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
+            UIView.animate(withDuration: duration) {
+                self.view.frame.origin.y += self.keyboardSize
+            }
         }
     }
-    
     
     //MARK: - TableView DataSource Methods
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -207,6 +207,11 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-
-
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    
+    
 }

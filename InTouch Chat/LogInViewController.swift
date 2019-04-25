@@ -5,7 +5,7 @@
 //  Created by Vladimir Brejcha on 25/04/2019.
 //  Copyright @2019 Vladimir Korolev. All rights reserved.
 //
-
+//deinit for observers
 
 import UIKit
 import Firebase
@@ -38,24 +38,24 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     @objc func keyBoardWillShow(notification: NSNotification) {
         let userInfo = notification.userInfo!
-        let beginFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.height
-        let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height
-        if endFrame != beginFrame {
-            return
+        if self.view.frame.origin.y == 0 {
+            guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
+            let size = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.height
+            keyboardSize = size
+            UIView.animate(withDuration: duration) {
+                self.view.frame.origin.y -= self.keyboardSize / 2
+            }
         }
-        guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
-        let size = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.height
-        keyboardSize = size
-        UIView.animate(withDuration: duration) {
-            self.view.frame.origin.y -= self.keyboardSize / 2
-        }
+        
     }
     
     @objc func keyBoardWillHide(notification: NSNotification) {
         let userInfo = notification.userInfo!
-        guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
-        UIView.animate(withDuration: duration) {
-            self.view.frame.origin.y += self.keyboardSize / 2
+        if self.view.frame.origin.y != 0 {
+            guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
+            UIView.animate(withDuration: duration) {
+                self.view.frame.origin.y += self.keyboardSize / 2
+            }
         }
     }
 
@@ -100,6 +100,11 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         }
        
         
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
 

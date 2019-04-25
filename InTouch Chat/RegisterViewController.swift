@@ -36,26 +36,24 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     @objc func keyBoardWillShow(notification: NSNotification) {
         let userInfo = notification.userInfo!
-        let beginFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.origin.y
-        let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.origin.y
-        if endFrame == beginFrame {
-            return
+        if self.view.frame.origin.y == 0 {
+            guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
+            let size = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.height
+            keyboardSize = size
+            UIView.animate(withDuration: duration) {
+                self.view.frame.origin.y -= self.keyboardSize / 2
+            }
         }
-        guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
-        let size = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.height
-        keyboardSize = size
-        UIView.animate(withDuration: duration) {
-            self.view.frame.origin.y -= size / 2
-        }
-        
         
     }
     
     @objc func keyBoardWillHide(notification: NSNotification) {
         let userInfo = notification.userInfo!
-        guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
-        UIView.animate(withDuration: duration) {
-            self.view.frame.origin.y += self.keyboardSize / 2
+        if self.view.frame.origin.y != 0 {
+            guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
+            UIView.animate(withDuration: duration) {
+                self.view.frame.origin.y += self.keyboardSize / 2
+            }
         }
     }
     
@@ -100,8 +98,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         }
     } 
     
-    @IBAction func rememberMeToggled(_ sender: UISwitch) {
-        
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
 }
