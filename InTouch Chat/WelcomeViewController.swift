@@ -8,6 +8,7 @@
 
 import UIKit
 import ChameleonFramework
+import Firebase
 
 
 class WelcomeViewController: UIViewController {
@@ -21,8 +22,15 @@ class WelcomeViewController: UIViewController {
         logInButton.backgroundColor = UIColor.flatNavyBlue()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        //remember user
+        if Auth.auth().currentUser != nil {
+            performSegue(withIdentifier: "goToChat", sender: self)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
 }

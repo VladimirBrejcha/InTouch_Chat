@@ -125,18 +125,6 @@
                                     <action selector="registerPressed:" destination="qQg-wA-Esh" eventType="touchUpInside" id="VlE-dg-fmH"/>
                                 </connections>
                             </button>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Tb-KX-51G">
-                                <rect key="frame" x="102.66666666666669" y="747" width="51" height="31"/>
-                                <connections>
-                                    <action selector="rememberMeToggled:" destination="qQg-wA-Esh" eventType="valueChanged" id="3AZ-mJ-34W"/>
-                                </connections>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember me" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wHp-es-BoQ">
-                                <rect key="frame" x="159.66666666666666" y="752" width="111.66666666666666" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -150,12 +138,8 @@
                             <constraint firstItem="SYb-Xx-USU" firstAttribute="leading" secondItem="15o-yi-McO" secondAttribute="leading" constant="16" id="Kwy-Wb-tDa"/>
                             <constraint firstAttribute="trailing" secondItem="PfL-jt-q3u" secondAttribute="trailing" id="SCF-4t-ZNc"/>
                             <constraint firstItem="67C-Ey-AV3" firstAttribute="top" secondItem="SYb-Xx-USU" secondAttribute="bottom" constant="8" id="Y1v-es-lUY"/>
-                            <constraint firstItem="wHp-es-BoQ" firstAttribute="centerX" secondItem="PfL-jt-q3u" secondAttribute="centerX" constant="28" id="ZCJ-VL-upq"/>
                             <constraint firstItem="PfL-jt-q3u" firstAttribute="centerX" secondItem="SYb-Xx-USU" secondAttribute="centerX" id="fcz-fA-5H6"/>
-                            <constraint firstItem="8Tb-KX-51G" firstAttribute="top" secondItem="PfL-jt-q3u" secondAttribute="bottom" constant="-65" id="id3-KN-0bq"/>
-                            <constraint firstItem="wHp-es-BoQ" firstAttribute="leading" secondItem="8Tb-KX-51G" secondAttribute="trailing" constant="8" id="pUn-Mo-nYO"/>
                             <constraint firstItem="SYb-Xx-USU" firstAttribute="centerY" secondItem="PfL-jt-q3u" secondAttribute="centerY" id="rR3-jj-xpK"/>
-                            <constraint firstItem="wHp-es-BoQ" firstAttribute="top" secondItem="PfL-jt-q3u" secondAttribute="bottom" constant="-60" id="tOd-Ep-sgh"/>
                             <constraint firstItem="SYb-Xx-USU" firstAttribute="top" secondItem="M1R-HS-xgc" secondAttribute="bottom" constant="8" id="uxW-iz-FAn"/>
                             <constraint firstItem="M1R-HS-xgc" firstAttribute="leading" secondItem="15o-yi-McO" secondAttribute="leading" constant="16" id="yAO-dD-oic"/>
                         </constraints>
@@ -220,29 +204,16 @@
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES" textContentType="email"/>
                             </textField>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HeJ-Eg-UNF">
-                                <rect key="frame" x="102.66666666666669" y="747" width="51" height="31"/>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember me" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gtz-l2-7jT">
-                                <rect key="frame" x="159.66666666666666" y="752" width="111.99999999999997" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="ZWF-xv-G1L" secondAttribute="trailing" constant="16" id="0ND-kw-Yac"/>
-                            <constraint firstItem="ns8-Hj-HXi" firstAttribute="bottom" secondItem="Gtz-l2-7jT" secondAttribute="bottom" constant="39" id="9TS-4E-WaE"/>
                             <constraint firstItem="zuQ-XP-4Q7" firstAttribute="top" secondItem="ZWF-xv-G1L" secondAttribute="bottom" constant="8" id="DqW-CH-vub"/>
-                            <constraint firstItem="Gtz-l2-7jT" firstAttribute="leading" secondItem="HeJ-Eg-UNF" secondAttribute="trailing" constant="8" id="Er4-GY-7dM"/>
                             <constraint firstAttribute="centerX" secondItem="zuQ-XP-4Q7" secondAttribute="centerX" id="O7m-lF-WXF"/>
-                            <constraint firstItem="Gtz-l2-7jT" firstAttribute="centerX" secondItem="ns8-Hj-HXi" secondAttribute="centerX" constant="28" id="Pg6-co-d6d"/>
                             <constraint firstItem="ns8-Hj-HXi" firstAttribute="centerY" secondItem="zuQ-XP-4Q7" secondAttribute="centerY" id="T1a-Fg-4p8"/>
                             <constraint firstAttribute="trailing" secondItem="OD6-NY-DlK" secondAttribute="trailing" constant="16" id="Tcg-uI-YgM"/>
                             <constraint firstItem="zuQ-XP-4Q7" firstAttribute="leading" secondItem="b1r-c3-eoq" secondAttribute="leading" constant="16" id="WDe-ZM-Io3"/>
                             <constraint firstAttribute="bottom" secondItem="ns8-Hj-HXi" secondAttribute="bottom" id="WT2-Gx-Man"/>
-                            <constraint firstItem="HeJ-Eg-UNF" firstAttribute="centerY" secondItem="Gtz-l2-7jT" secondAttribute="centerY" id="aU4-4P-bMr"/>
                             <constraint firstAttribute="trailing" secondItem="zuQ-XP-4Q7" secondAttribute="trailing" constant="16" id="cnq-8h-LSh"/>
                             <constraint firstAttribute="trailing" secondItem="ns8-Hj-HXi" secondAttribute="trailing" id="le5-9Z-DI3"/>
                             <constraint firstItem="ns8-Hj-HXi" firstAttribute="leading" secondItem="b1r-c3-eoq" secondAttribute="leading" id="luA-TN-7hs"/>
@@ -400,7 +371,7 @@
         <image name="send" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RuE-fI-2yI"/>
+        <segue reference="mOy-cb-hAN"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.15868747229999999" green="0.2182204425" blue="0.30320093040000001" alpha="1" colorSpace="calibratedRGB"/>
 </document>
