@@ -1,9 +1,9 @@
 //
 //  MyMessageViewCell.swift
-//  InTouch Chat
+//  InTouch chat
 //
-//  Created by Vladimir Korolev on 24/04/2019.
-//  Copyright © 2019 London App Brewery. All rights reserved.
+//  Created by Vladimir Brejcha on 25/04/2019.
+//  Copyright @2019 Vladimir Korolev. All rights reserved.
 //
 
 import UIKit

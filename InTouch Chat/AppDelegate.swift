@@ -1,9 +1,9 @@
 //
 //  AppDelegate.swift
-//  Flash Chat
+//  InTouch chat
 //
-//  The App Delegate listens for events from the system. 
-//  It recieves application level messages like did the app finish launching or did it terminate etc. 
+//  Created by Vladimir Brejcha on 25/04/2019.
+//  Copyright @2019 Vladimir Korolev. All rights reserved.
 //
 
 import UIKit
@@ -49,19 +49,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-//MARK: - Uncomment this only once you've gotten to Step 14.
-    /*
-    
-let APP_ID = "5H62DKM7JuG6kBBzVICydweQkSQTZD8vsFtoEEew"
-let CLIENT_KEY = "UMkw6hwriImwSAEtwxlMbrJXtcccrTR6jdcRS9IN"
-    
-*/
-
 
 }
 
-
-// You need to call hideKeyboardWhenTappedAround() in your view controller
+//Hiding keyboard on tap
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))

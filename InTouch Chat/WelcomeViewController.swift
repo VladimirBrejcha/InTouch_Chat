@@ -1,8 +1,9 @@
 //
 //  WelcomeViewController.swift
-//  Flash Chat
+//  InTouch chat
 //
-//  This is the welcome view controller - the first thign the user sees
+//  Created by Vladimir Brejcha on 25/04/2019.
+//  Copyright @2019 Vladimir Korolev. All rights reserved.
 //
 
 import UIKit
