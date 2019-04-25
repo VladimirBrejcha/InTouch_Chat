@@ -31,6 +31,8 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         retrieveMessages()
         
         setObservers()
+        
+        hideKeyboardWhenTappedAround()
     }
     
     
@@ -56,7 +58,6 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         messageTableView.register(UINib(nibName: "MessageCell", bundle: nil), forCellReuseIdentifier: "customMessageCell")
         messageTableView.register(UINib(nibName: "MyMessageViewCell", bundle: nil), forCellReuseIdentifier: "myMessageViewCell")
-        
         
         messageTextfield.delegate = self
         
@@ -107,17 +108,24 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     
-    
     internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messageArray.count
     }
     
     
-    //this function is used to block table view cell from being selected
+    //this function used to block table view cell from being selected
     @objc func tableViewTapped(sender: UIGestureRecognizer) {
         messageTextfield.endEditing(true)
     }
     
+    //this function used to scroll to the last message
+    private func scrollToBottom()  {
+        let point = CGPoint(x: 0, y: self.messageTableView.contentSize.height + self.messageTableView.contentInset.bottom - self.messageTableView.frame.height)
+        if point.y >= 0{
+            self.view.layoutIfNeeded()
+            self.messageTableView.setContentOffset(point, animated: true)
+        }
+    }
     
     //MARK: - Send & Recieve from Firebase
     @IBAction func sendPressed(_ sender: AnyObject) {
@@ -151,9 +159,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.messageTextfield.isEnabled = true
                 self.sendButton.isEnabled = true
                 self.messageTextfield.text = ""
-                let lastRow: Int = self.messageTableView.numberOfRows(inSection: 0) - 1
-                let indexPath = IndexPath(row: lastRow, section: 0)
-                self.messageTableView.scrollToRow(at: indexPath, at: .none, animated: true)
+                self.scrollToBottom()
             }
         }
     }
@@ -180,8 +186,8 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             messageObject.sender = sender
             
             self.messageArray.append(messageObject)
-            
             self.messageTableView.reloadData()
+            self.scrollToBottom()
         }
     }
     
