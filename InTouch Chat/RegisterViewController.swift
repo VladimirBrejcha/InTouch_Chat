@@ -77,7 +77,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func registerPressed(_ sender: AnyObject) {
         if passwordTextfield.text!.count < 6 { // force unwrap
-            let alertController = UIAlertController(title: "Error", message: "Passwrod must be longer than 6 symbols long", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Error", message: "Password must be longer than 6 symbols long", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
             alertController.addAction(okAction)
             present(alertController, animated: true, completion: nil)
