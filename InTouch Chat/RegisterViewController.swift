@@ -84,9 +84,13 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         } else {
             SVProgressHUD.show()
             Auth.auth().createUser(withEmail: emailTextfield.text!, password: passwordTextfield.text!) { (user, error) in
-                
                 if error != nil {
                     print(error!)
+                    let alertController = UIAlertController(title: "Error", message: "Enter correct email", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                    alertController.addAction(okAction)
+                    SVProgressHUD.dismiss()
+                    self.present(alertController, animated: true, completion: nil)
                 } else {
                     SVProgressHUD.dismiss()
                     print("success")

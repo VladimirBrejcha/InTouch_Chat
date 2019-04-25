@@ -85,7 +85,11 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             if let email = emailTextfield.text, let password = passwordTextfield.text {
                 Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
                     if error != nil {
-                        print("error")
+                        let alertController = UIAlertController(title: "Error", message: "Wrong email or password", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                        alertController.addAction(okAction)
+                        SVProgressHUD.dismiss()
+                        self.present(alertController, animated: true, completion: nil)
                     } else {
                         print("success")
                         SVProgressHUD.dismiss()
