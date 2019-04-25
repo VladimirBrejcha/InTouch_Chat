@@ -9,7 +9,13 @@
 import UIKit
 
 class MyMessageViewCell: UITableViewCell {
-
+    
+    @IBOutlet weak var senderUsername: UILabel!
+    @IBOutlet weak var messageBody: UILabel!
+    
+    @IBOutlet weak var leftConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var backgroundViewWidth: NSLayoutConstraint!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -6,6 +6,7 @@
 //  Copyright @2019 Vladimir Korolev. All rights reserved.
 //
 
+
 import UIKit
 import Firebase
 import ChameleonFramework
@@ -56,7 +57,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         messageTableView.rowHeight = UITableView.automaticDimension
         messageTableView.estimatedRowHeight = 12.0
         
-        messageTableView.register(UINib(nibName: "MessageCell", bundle: nil), forCellReuseIdentifier: "customMessageCell")
+        messageTableView.register(UINib(nibName: "CustomMessageCell", bundle: nil), forCellReuseIdentifier: "customMessageCell")
         messageTableView.register(UINib(nibName: "MyMessageViewCell", bundle: nil), forCellReuseIdentifier: "myMessageViewCell")
         
         messageTextfield.delegate = self
@@ -93,16 +94,18 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "customMessageCell", for: indexPath) as! CustomMessageCell
-        let myCell = tableView.dequeueReusableCell(withIdentifier: "myMessageViewCell", for: indexPath) as! CustomMessageCell
+        let myCell = tableView.dequeueReusableCell(withIdentifier: "myMessageViewCell", for: indexPath) as! MyMessageViewCell
         
         //checking which user is logged in to separate his messages from others messages
         if messageArray[indexPath.row].sender == Auth.auth().currentUser?.email as String? {
             myCell.messageBody.text = messageArray[indexPath.row].messageBody
             myCell.senderUsername.text = messageArray[indexPath.row].sender
+            myCell.backgroundViewWidth.constant =  self.view.frame.width / 3
             return myCell
         } else {
             cell.messageBody.text = messageArray[indexPath.row].messageBody
             cell.senderUsername.text = messageArray[indexPath.row].sender
+            cell.backgroundViewWidth.constant = self.view.frame.width / 3
             return cell
         }
     }
@@ -121,7 +124,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     //this function used to scroll to the last message
     private func scrollToBottom()  {
         
-        
+        //TODO: add animations when user scrolls view
         let indexPath = IndexPath(row: messageTableView.numberOfRows(inSection: 0) - 1, section: 0)
 //        let totalRow = messageTableView.numberOfRows(inSection: indexPath.section)
 ////        if (indexPath.row == totalRow - 1) {

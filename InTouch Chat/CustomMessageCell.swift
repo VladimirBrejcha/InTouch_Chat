@@ -10,21 +10,10 @@ import UIKit
 
 class CustomMessageCell: UITableViewCell {
 
-
-    @IBOutlet var messageBackground: UIView!
-    @IBOutlet var avatarImageView: UIImageView!
     @IBOutlet var messageBody: UILabel!
     @IBOutlet var senderUsername: UILabel!
-    @IBOutlet weak var leftConstraint: NSLayoutConstraint!
-    @IBOutlet weak var leftSpecialConstraint: NSLayoutConstraint!
-    @IBOutlet weak var rightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var rightSpecialConstraint: NSLayoutConstraint!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code goes here
-        
-    }
+    @IBOutlet weak var rightConstraint: NSLayoutConstraint!
 
-
+    @IBOutlet weak var backgroundViewWidth: NSLayoutConstraint!
 }
