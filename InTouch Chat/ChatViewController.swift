@@ -120,11 +120,17 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     //this function used to scroll to the last message
     private func scrollToBottom()  {
-        let point = CGPoint(x: 0, y: self.messageTableView.contentSize.height + self.messageTableView.contentInset.bottom - self.messageTableView.frame.height)
-        if point.y >= 0{
-            self.view.layoutIfNeeded()
-            self.messageTableView.setContentOffset(point, animated: true)
-        }
+        
+        
+        let indexPath = IndexPath(row: messageTableView.numberOfRows(inSection: 0) - 1, section: 0)
+//        let totalRow = messageTableView.numberOfRows(inSection: indexPath.section)
+////        if (indexPath.row == totalRow - 1) {
+////            print("wrong")
+////            return
+////
+////        }
+        self.messageTableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+        self.view.layoutIfNeeded()
     }
     
     //MARK: - Send & Recieve from Firebase
@@ -159,7 +165,6 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.messageTextfield.isEnabled = true
                 self.sendButton.isEnabled = true
                 self.messageTextfield.text = ""
-                self.scrollToBottom()
             }
         }
     }
@@ -187,8 +192,10 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             self.messageArray.append(messageObject)
             self.messageTableView.reloadData()
+            print("retrive")
             self.scrollToBottom()
         }
+        
     }
     
     @IBAction func logOutPressed(_ sender: AnyObject) {
