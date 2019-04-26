@@ -15,6 +15,8 @@ class WelcomeViewController: UIViewController {
 
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var logInButton: UIButton!
+    @IBOutlet weak var creditsImageView: UIImageView!
+    @IBOutlet weak var backgroundView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +28,16 @@ class WelcomeViewController: UIViewController {
         if Auth.auth().currentUser != nil {
             performSegue(withIdentifier: "goToChat", sender: self)
         }
+    }
+    @IBAction func creditsButtonPressed(_ sender: Any) {
+        if creditsImageView.isHidden == true {
+            creditsImageView.isHidden = false
+            backgroundView.alpha = 0.5
+        } else {
+            creditsImageView.isHidden = true
+            backgroundView.alpha = 0.85
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
