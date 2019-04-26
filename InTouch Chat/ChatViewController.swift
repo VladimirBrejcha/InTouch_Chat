@@ -22,6 +22,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet var sendButton: UIButton!
     @IBOutlet var messageTextfield: UITextField!
     @IBOutlet var messageTableView: UITableView!
+    @IBOutlet var backgroundView: UIView!
     
     
     override func viewDidLoad() {
@@ -71,10 +72,10 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         let userInfo = notification.userInfo!
         if self.view.frame.origin.y == 0 {
             guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
-            let size = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.height
+            let size = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
             keyboardSize = size
             UIView.animate(withDuration: duration) {
-                self.view.frame.origin.y -= self.keyboardSize
+                self.view.frame.origin.y -= self.keyboardSize - self.view.safeAreaInsets.bottom
             }
         }
         
@@ -85,7 +86,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         if self.view.frame.origin.y != 0 {
             guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
             UIView.animate(withDuration: duration) {
-                self.view.frame.origin.y += self.keyboardSize
+                self.view.frame.origin.y += self.keyboardSize - self.view.safeAreaInsets.bottom
             }
         }
     }

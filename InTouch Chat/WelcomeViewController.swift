@@ -18,8 +18,6 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        registerButton.backgroundColor = UIColor.flatOrange()
-        logInButton.backgroundColor = UIColor.flatNavyBlue()
     }
     
     override func viewDidAppear(_ animated: Bool) {

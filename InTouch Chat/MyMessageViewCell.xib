@@ -34,7 +34,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.28728589415550232" green="0.1402067244052887" blue="0.30659055709838867" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.3136453032" green="0.62541002040000004" blue="0.34110033509999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="ngG-M8-AEg" secondAttribute="trailing" constant="10" id="3yN-h3-scc"/>
                             <constraint firstItem="ngG-M8-AEg" firstAttribute="top" secondItem="6KU-Qs-WTx" secondAttribute="bottom" constant="8" id="5Bv-as-8cv"/>

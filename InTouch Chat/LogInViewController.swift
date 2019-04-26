@@ -28,7 +28,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         logInButton.layer.cornerRadius = 5
-        logInButton.backgroundColor = UIColor.flatOrange()
         hideKeyboardWhenTappedAround()
 
         passwordTextfield.delegate = self
@@ -42,7 +41,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             let size = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.height
             keyboardSize = size
             UIView.animate(withDuration: duration) {
-                self.view.frame.origin.y -= self.keyboardSize / 2
+                self.view.frame.origin.y -= self.keyboardSize / 2 - self.view.safeAreaInsets.bottom
             }
         }
         
@@ -53,7 +52,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         if self.view.frame.origin.y != 0 {
             guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
             UIView.animate(withDuration: duration) {
-                self.view.frame.origin.y += self.keyboardSize / 2
+                self.view.frame.origin.y += self.keyboardSize / 2 - self.view.safeAreaInsets.bottom
             }
         }
     }
