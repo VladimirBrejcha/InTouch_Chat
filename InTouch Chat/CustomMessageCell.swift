@@ -10,10 +10,8 @@ import UIKit
 
 class CustomMessageCell: UITableViewCell {
 
-    @IBOutlet var messageBody: UILabel!
-    @IBOutlet var senderUsername: UILabel!
-    
-    @IBOutlet weak var rightConstraint: NSLayoutConstraint!
-
+    @IBOutlet weak var messageBody: UILabel!
+    @IBOutlet weak var senderUsername: UILabel!
     @IBOutlet weak var backgroundViewWidth: NSLayoutConstraint!
+    
 }

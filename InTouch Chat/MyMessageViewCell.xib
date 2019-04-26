@@ -63,7 +63,6 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="backgroundViewWidth" destination="Xsv-IU-alS" id="6hR-E2-dWq"/>
-                <outlet property="leftConstraint" destination="f7k-0p-lTM" id="Xdv-bI-GjK"/>
                 <outlet property="messageBody" destination="ngG-M8-AEg" id="IcA-dj-VJ4"/>
                 <outlet property="senderUsername" destination="6KU-Qs-WTx" id="Atb-6k-fFG"/>
             </connections>

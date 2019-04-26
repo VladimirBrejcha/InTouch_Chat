@@ -64,7 +64,6 @@
             <connections>
                 <outlet property="backgroundViewWidth" destination="927-tH-mrE" id="8A5-zg-jJQ"/>
                 <outlet property="messageBody" destination="Ael-H3-UuV" id="kXz-0y-fp3"/>
-                <outlet property="rightConstraint" destination="F1b-eD-GtD" id="YSi-je-w4o"/>
                 <outlet property="senderUsername" destination="khv-tc-S9N" id="9FT-43-C9p"/>
             </connections>
             <point key="canvasLocation" x="438.75" y="380.8098591549296"/>

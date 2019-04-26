@@ -18,17 +18,21 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var creditsImageView: UIImageView!
     @IBOutlet weak var backgroundView: UIImageView!
     
+    
+    //MARK: - controller life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        //remember user
-        if Auth.auth().currentUser != nil {
+        
+        if Auth.auth().currentUser != nil { //checking if user is already logged in
             performSegue(withIdentifier: "goToChat", sender: self)
         }
     }
+    
+    //MARK: - actions
     @IBAction func creditsButtonPressed(_ sender: Any) {
         if creditsImageView.isHidden == true {
             creditsImageView.isHidden = false
@@ -37,10 +41,7 @@ class WelcomeViewController: UIViewController {
             creditsImageView.isHidden = true
             backgroundView.alpha = 0.85
         }
-        
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
+    
 }

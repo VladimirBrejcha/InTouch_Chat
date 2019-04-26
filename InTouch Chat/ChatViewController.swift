@@ -13,18 +13,17 @@ import ChameleonFramework
 
 
 class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
-
-    private var messageArray = [Message]()
-    private var keyboardSize = CGFloat()
     
-    // We've pre-linked the IBOutlets
-    @IBOutlet var heightConstraint: NSLayoutConstraint!
-    @IBOutlet var sendButton: UIButton!
-    @IBOutlet var messageTextfield: UITextField!
-    @IBOutlet var messageTableView: UITableView!
-    @IBOutlet var backgroundView: UIView!
+    private var messageArray = [Message]() //array to save messages while they are delivering to server
+    private var keyboardSize = CGFloat() //saving keyboard size to use it later in keyboardWillhide
     
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var messageTextfield: UITextField!
+    @IBOutlet weak var messageTableView: UITableView!
+    @IBOutlet weak var backgroundView: UIView!
     
+    //MARK: - controller life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,18 +36,13 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         hideKeyboardWhenTappedAround()
     }
     
-    
-    fileprivate func setObservers() {
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    
+    //MARK: - View setup
     fileprivate func setMessageView() {
-        
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(tableViewTapped))
-        messageTableView.addGestureRecognizer(tapRecognizer)
         
         messageTableView.delegate = self
         messageTableView.dataSource = self
@@ -66,24 +60,27 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         navigationItem.hidesBackButton = true
     }
     
+    //MARK:- Keyboard methods
+    fileprivate func setObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
     
-    //MARK: - Moving view on Keyboard frame changing
-    @objc func keyBoardWillShow(notification: NSNotification) {
+    @objc func keyboardWillShow(notification: NSNotification) {
         let userInfo = notification.userInfo!
-        if self.view.frame.origin.y == 0 {
+        if self.view.frame.origin.y == 0 { //checking if view frame is on default position
             guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
-            let size = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
-            keyboardSize = size
+            let size = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.height
+            keyboardSize = size //saving keyboard size to use it later in keyboardWillhide
             UIView.animate(withDuration: duration) {
                 self.view.frame.origin.y -= self.keyboardSize - self.view.safeAreaInsets.bottom
             }
         }
-        
     }
     
-    @objc func keyBoardWillHide(notification: NSNotification) {
+    @objc func keyboardWillHide(notification: NSNotification) {
         let userInfo = notification.userInfo!
-        if self.view.frame.origin.y != 0 {
+        if self.view.frame.origin.y != 0 { //checking if view frame is on default position
             guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
             UIView.animate(withDuration: duration) {
                 self.view.frame.origin.y += self.keyboardSize - self.view.safeAreaInsets.bottom
@@ -111,28 +108,13 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    
     internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messageArray.count
     }
     
-    
-    //this function used to block table view cell from being selected
-    @objc func tableViewTapped(sender: UIGestureRecognizer) {
-        messageTextfield.endEditing(true)
-    }
-    
-    //this function used to scroll to the last message
+    //this function used to scroll tableview to the last message
     private func scrollToBottom()  {
-        
-        //TODO: add animations when user scrolls view
         let indexPath = IndexPath(row: messageTableView.numberOfRows(inSection: 0) - 1, section: 0)
-//        let totalRow = messageTableView.numberOfRows(inSection: indexPath.section)
-////        if (indexPath.row == totalRow - 1) {
-////            print("wrong")
-////            return
-////
-////        }
         self.messageTableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
         self.view.layoutIfNeeded()
     }
@@ -142,12 +124,12 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         messageTextfield.endEditing(true)
         messageTextfield.isEnabled = false
-        sendButton.isEnabled = false
+        sendButton.isEnabled = false //blocking possibility to send new messages if old one is not sent yet
         
         let messagesDataBase = Database.database().reference().child("Messages")
         let messageDictionary = ["Sender" : Auth.auth().currentUser?.email, "Message" : messageTextfield.text]
         
-        if messageTextfield.text == "" {
+        if messageTextfield.text == "" { //blocking empty messages
             self.messageTextfield.isEnabled = true
             self.sendButton.isEnabled = true
             return
@@ -180,7 +162,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     private func retrieveMessages() {
         
-        //finding a context with messages
+        //creating a context with messages
         let messageDataBase = Database.database().reference().child("Messages")
         
         //listening to data changes in context
@@ -196,12 +178,11 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             self.messageArray.append(messageObject)
             self.messageTableView.reloadData()
-            print("retrive")
             self.scrollToBottom()
         }
-        
     }
     
+    //MARK: - Log out logic
     @IBAction func logOutPressed(_ sender: AnyObject) {
         do {
             try Auth.auth().signOut()
@@ -210,12 +191,6 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             print("Error \(error.localizedDescription)")
         }
     }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
     
     
 }

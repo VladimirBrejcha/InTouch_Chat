@@ -120,10 +120,10 @@
 			isa = PBXGroup;
 			children = (
 				63E28B2A1B9A337600FBF6E0 /* AppDelegate.swift */,
-				63E28B2B1B9A337600FBF6E0 /* ChatViewController.swift */,
+				63E28B2E1B9A337600FBF6E0 /* WelcomeViewController.swift */,
 				63E28B2C1B9A337600FBF6E0 /* LogInViewController.swift */,
 				63E28B2D1B9A337600FBF6E0 /* RegisterViewController.swift */,
-				63E28B2E1B9A337600FBF6E0 /* WelcomeViewController.swift */,
+				63E28B2B1B9A337600FBF6E0 /* ChatViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
