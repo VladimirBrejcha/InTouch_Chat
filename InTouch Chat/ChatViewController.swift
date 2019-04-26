@@ -112,13 +112,6 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         return messageArray.count
     }
     
-    //this function used to scroll tableview to the last message
-    private func scrollToBottom()  {
-        let indexPath = IndexPath(row: messageTableView.numberOfRows(inSection: 0) - 1, section: 0)
-        self.messageTableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
-        self.view.layoutIfNeeded()
-    }
-    
     //MARK: - Send & Recieve from Firebase
     @IBAction func sendPressed(_ sender: AnyObject) {
         
@@ -179,6 +172,15 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.messageArray.append(messageObject)
             self.messageTableView.reloadData()
             self.scrollToBottom()
+        }
+    }
+    
+    //this function used to scroll tableview to the last message
+    private func scrollToBottom()  {
+        if messageTableView.numberOfRows(inSection: 0) > 0 {
+            let indexPath = IndexPath(row: messageTableView.numberOfRows(inSection: 0) - 1, section: 0)
+            self.messageTableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+            self.view.layoutIfNeeded()
         }
     }
     
