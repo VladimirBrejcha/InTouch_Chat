@@ -3,3 +3,8 @@ features:
 - Add animations to message bubbles
 - Add chat rooms
 - Add possibility to send new messages while old ones are sending
+bugfixes:
+- Make single custom cell instead of using two cells
+- cell height should be changed manually
+- reloadData should not be used
+- Use keyboard frame notifications instead of will show/will hide
