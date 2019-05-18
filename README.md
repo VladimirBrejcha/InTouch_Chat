@@ -1,5 +1,6 @@
 # InTouchApp
 InTouch is simply chat app based on Swift
+![Frame 2](https://user-images.githubusercontent.com/44097057/57965792-62e50980-7951-11e9-949b-5e22befedb61.png)
 
 ### Features
 - Can send and recieve messages
